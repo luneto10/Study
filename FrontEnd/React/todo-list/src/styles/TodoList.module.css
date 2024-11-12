@@ -1,12 +1,10 @@
 /* Custom Scrollbar */
-.itemList {
-    max-width: 600px;
-    min-width: 700px;
+/* .itemList {
+    max-width: 700px;
+    width: 600px;
     max-height: 95vh;
-    overflow-y: hidden;
-    overflow-x: hidden;
     min-height: 40px;
-}
+} */
 
 /* Glowing circle effect with Bootstrap button */
 .hover-glow {
@@ -36,3 +34,10 @@
     opacity: 0.3;
 }
 
+
+@media screen and (max-width: 768px) {
+    .itemList {
+        max-width: 100%;
+        min-width: 100%;
+    }
+}

@@ -35,7 +35,7 @@ function App() {
         { id: uuidv4(), todo: "Buy milk", completed: false },
         { id: uuidv4(), todo: "Buy milk", completed: false },
         { id: uuidv4(), todo: "Buy milk", completed: false },
-        { id: uuidv4(), todo: "Buy milk", completed: false },
+        { id: uuidv4(), todo: "10", completed: false },
     ]);
 
     const handleToggle = (id: string) => {
