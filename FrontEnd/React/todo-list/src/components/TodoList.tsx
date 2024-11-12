@@ -50,7 +50,8 @@ export default function TodoList({
                         <AddCircleOutlineSharpIcon />
                     </button>
                     <Button
-                        variant="outline-danger"
+                        variant={todos.length === 0 ? "outline-secondary" : "outline-danger"}
+                        disabled={todos.length === 0}
                         size="sm"
                         onClick={openConfirmDeleteModal}
                     >
