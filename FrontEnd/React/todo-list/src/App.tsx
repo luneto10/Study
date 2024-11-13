@@ -62,6 +62,14 @@ function App() {
         setTodos([]);
     };
 
+    const handleEdit = (id: string, updatedText: string) => {
+        setTodos((prevTodos) =>
+            prevTodos.map((todo) =>
+                todo.id === id ? { ...todo, todo: updatedText } : todo
+            )
+        );
+    };
+
     return (
         <div className="d-flex flex-column justify-content-center align-items-center vh-100">
             <TodoList
@@ -70,6 +78,7 @@ function App() {
                 handleDelete={handleDelete}
                 handleAdd={handleAdd}
                 handleDeleteAll={handleDeleteAll}
+                handleEdit={handleEdit}
             />
         </div>
     );

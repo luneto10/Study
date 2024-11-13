@@ -2,7 +2,7 @@ import TodoItem from "./TodoItem";
 import { Todo } from "../types/types";
 import styles from "../styles/TodoList.module.css";
 import { useState } from "react";
-import AddItem from "./AddItem";
+import ModalTextItem from "./ModalText";
 import AddCircleOutlineSharpIcon from "@mui/icons-material/AddCircleOutlineSharp";
 import DeleteAll from "./DeleteAll";
 import { Button } from "react-bootstrap";
@@ -16,6 +16,7 @@ interface TodoListProps {
     handleDelete: (id: string) => void;
     handleDeleteAll: () => void;
     handleAdd: (todoText: string) => void;
+    handleEdit: (id: string, updatedText: string) => void;
 }
 
 export default function TodoList({
@@ -24,6 +25,7 @@ export default function TodoList({
     handleDelete,
     handleAdd,
     handleDeleteAll,
+    handleEdit,
 }: TodoListProps) {
     const [showItemModal, setShowModal] = useState(false);
     const openItemModal = () => setShowModal(true);
@@ -32,7 +34,6 @@ export default function TodoList({
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
     const openConfirmDeleteModal = () => setShowConfirmDeleteModal(true);
     const closeConfirmDeleteModal = () => setShowConfirmDeleteModal(false);
-
     return (
         <div
             className="container-fluid d-flex justify-content-center align-items-center"
@@ -85,6 +86,7 @@ export default function TodoList({
                                             {...todo}
                                             handleToggle={handleToggle}
                                             handleDelete={handleDelete}
+                                            handleEdit={handleEdit}
                                         />
                                     ))}
                                 </ul>
@@ -92,7 +94,7 @@ export default function TodoList({
                         </div>
                     </SimpleBar>
 
-                    <AddItem
+                    <ModalTextItem
                         show={showItemModal}
                         handleClose={closeItemModal}
                         handleAdd={handleAdd}

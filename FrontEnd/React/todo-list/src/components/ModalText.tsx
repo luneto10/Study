@@ -1,30 +1,48 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
 interface AddTodoModalProps {
     show: boolean;
     handleClose: () => void;
-    handleAdd: (todoText: string) => void;
+    handleAdd?: (todoText: string) => void;
+    handleEdit?: (id: string, updatedText: string) => void;
+    todoText?: string;
+    todoId?: string;
+    isEditing?: boolean;
 }
 
-export default function AddItem({
+export default function ModalTextItem({
     show,
     handleClose,
-    handleAdd,
+    handleAdd = () => {},
+    handleEdit = () => {},
+    todoText = "",
+    todoId = "",
+    isEditing = false,
 }: AddTodoModalProps) {
-    const [todoText, setTodoText] = useState("");
+    const [text, setText] = useState(todoText);
+
+    useEffect(() => {
+        setText(todoText); // Update state when todoText changes
+    }, [todoText]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        handleAdd(todoText);
-        setTodoText("");
+        if (isEditing && handleEdit) {
+            handleEdit(todoId, text);
+        } else {
+            handleAdd(text);
+        }
+        setText("");
         handleClose();
     };
 
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Add New Todo</Modal.Title>
+                <Modal.Title>
+                    {isEditing ? "Edit Todo" : "Add New Todo"}
+                </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
@@ -33,13 +51,13 @@ export default function AddItem({
                         <Form.Control
                             type="text"
                             placeholder="Enter todo"
-                            value={todoText}
-                            onChange={(e) => setTodoText(e.target.value)}
+                            value={text}
+                            onChange={(e) => setText(e.target.value)}
                             required
                         />
                     </Form.Group>
                     <Button variant="primary" type="submit" className="mt-3">
-                        Add Todo
+                        {isEditing ? "Save Changes" : "Add Todo"}
                     </Button>
                 </Form>
             </Modal.Body>
